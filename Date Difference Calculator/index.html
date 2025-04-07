@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="SecurePass generates strong, random passwords based on your settings. It provides real-time feedback on password strength, and everything is processed locally with no external tracking.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+     <!--  
+© 2025 <a href="https://rsabbir.com/">R.Sabbir</a>. All rights reserved.  
+Date Difference Calculator – Respect the work.  
+-->
+
+    <div class="date-time-calculator-container">
+        <h1>Date Difference Calculator</h1>
+
+        <div class="input-group">
+            <label for="start-date">Start Date & Time:</label>
+            <div class="date-time-group">
+                <input type="date" id="start-date">
+                <input type="time" id="start-time">
+                <div class="input-button-group">
+                    <button type="button" id="start-date-today">Today</button>
+                    <button type="button" id="start-time-now">Now</button>
+                </div>
+            </div>
+            <div id="start-date-error" class="error-message"></div>
+        </div>
+
+        <div class="input-group" id="end-date-group">
+            <label for="end-date">End Date & Time:</label>
+            <div class="date-time-group">
+                <input type="date" id="end-date">
+                <input type="time" id="end-time">
+                <div class="input-button-group">
+                    <button type="button" id="end-date-today">Today</button>
+                    <button type="button" id="end-time-now">Now</button>
+                </div>
+            </div>
+            <div id="end-date-error" class="error-message"></div>
+        </div>
+
+        <div class="input-group">
+            <label for="calculationType">Calculation Type:</label>
+            <select id="calculationType">
+                <option value="difference">Calculate Difference</option>
+                <option value="addSubtract">Add/Subtract to Start Date</option>
+                <option value="workingDays">Working Days Between</option>
+                <option value="dateArithmetic">Add/Subtract Days</option>
+            </select>
+        </div>
+
+        <div id="addSubtractOptions">
+             <label>Add/Subtract to Start Date:</label>
+            <div class="add-subtract-inputs">
+                 <button type="button" id="operation-toggle-button" class="operation-button add-mode" data-operation="+">
+                    <span class="icon">+</span> Add
+                </button>
+                <input type="number" id="years" placeholder="Years" min="0">
+                <input type="number" id="months" placeholder="Months" min="0">
+                <input type="number" id="days" placeholder="Days" min="0">
+            </div>
+             <div id="add-subtract-error" class="error-message"></div>
+        </div>
+
+        <div id="workingDaysOptions">
+            <div class="input-group">
+                <label for="weekStart">First Day of Week:</label>
+                <select id="weekStart">
+                    <option value="0">Sunday</option>
+                    <option value="1" selected>Monday</option>
+                    <option value="6">Saturday</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="holidays">Holidays (YYYY-MM-DD, comma-separated):</label>
+                <input type="text" id="holidays" placeholder="e.g., 2025-12-25, 2026-01-01">
+                 <div id="holidays-error" class="error-message"></div>
+            </div>
+        </div>
+
+        <div id="dateArithmeticOptions">
+             <div class="input-group">
+                <label for="dateArithmeticBase">Choose Base Date:</label>
+                <select id="dateArithmeticBase">
+                    <option value="startDate">Start Date</option>
+                    <option value="endDate">End Date</option>
+                </select>
+             </div>
+             <div class="input-group">
+                <label for="dateArithmeticValue">Days to Add (+) or Subtract (-):</label>
+                <input type="number" id="dateArithmeticValue" placeholder="e.g., 30 or -15">
+                 <div id="date-arithmetic-error" class="error-message"></div>
+             </div>
+        </div>
+
+        <div id="general-error" class="error-message"></div>
+
+        <div class="button-group">
+            <button id="calculate">
+                <span>Calculate</span>
+            </button>
+        </div>
+
+        <div id="results"></div> </div>
+
+        <div class="copyright">
+            &copy; <span id="year"></span> Date Difference Calculator Developed by R. Sabbir | All Rights Reserved
+        </div>
+
+        <script src="script.js"></script>
+</body>
+</html>

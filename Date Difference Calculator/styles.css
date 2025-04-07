@@ -1,0 +1,450 @@
+/* CSS for Date Difference Calculator */
+        :root {
+            --primary-bg: #1A2238;
+            --primary-text: #FFFFFF;
+            --accent-purple: #9B5CFE;
+            --accent-purple-darker: #7C3AED;
+            --accent-orange: #E6A84D;
+            --accent-orange-darker: #D89B3D;
+            --input-bg: #2A3655;
+            --input-border: #3E4B6D;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            --error-red: #F87171;
+            --error-bg: rgba(220, 38, 38, 0.1);
+            --error-border: rgba(220, 38, 38, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box; /* Apply box-sizing universally */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 1rem; /* Add padding for smaller screens */
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;   
+            min-height: 100vh;
+            color: var(--primary-text);
+                    
+        }
+
+        .date-time-calculator-container {
+            background-color: var(--primary-bg);
+            padding: 2rem 2.5rem; /* Adjusted padding */
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            width: 100%; /* Full width up to max */
+            max-width: 650px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            margin-top: 2rem; /* Add margin from top */
+            margin-bottom: 2rem; /* Add margin at bottom */
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin-top: 0; /* Remove default top margin */
+            margin-bottom: 2rem; /* Increased margin */
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem; /* Slightly larger label */
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85); /* Slightly brighter */
+            margin-bottom: 0.75rem;
+        }
+
+        /* General Input Styling */
+        .input-group input[type="date"],
+        .input-group input[type="time"],
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group select {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--input-border);
+            font-size: 1rem;
+            font-family: inherit; /* Inherit body font */
+            color: var(--primary-text);
+            outline: none;
+            transition: var(--transition);
+            background-color: var(--input-bg);
+        }
+        /* Specific overrides for number inputs */
+        .input-group input[type="number"] {
+            appearance: textfield; /* Remove spinners in some browsers */
+        }
+        /* Style placeholders */
+        .input-group ::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            opacity: 1; /* Firefox */
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(155, 92, 254, 0.3);
+        }
+
+        /* Attempt to influence native date/time icons (limited compatibility) */
+        .input-group input[type="date"],
+        .input-group input[type="time"] {
+            color-scheme: dark; /* Hint for browsers to use light icons */
+            color: var(--primary-text); /* Ensure text is white */
+             /* Add a subtle border to help distinguish if background blends */
+             border: 1px solid var(--input-border);
+        }
+        /* Style placeholders explicitly white for date/time */
+        .input-group input[type="date"]::placeholder,
+        .input-group input[type="time"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+
+        .input-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23E6A84D' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+        /* Date/Time Group Styling */
+        .date-time-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .date-time-group input[type="date"] { flex: 2 1 150px; }
+        .date-time-group input[type="time"] { flex: 1 1 100px; }
+
+        .input-button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+        .input-button-group button {
+            padding: 0.6rem 0.85rem;
+            border-radius: 0.375rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background-color: var(--accent-orange);
+            color: var(--primary-bg);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .input-button-group button:hover {
+            background-color: var(--accent-orange-darker);
+            transform: translateY(-1px);
+        }
+
+        /* Options Sections Base Styling */
+        #addSubtractOptions,
+        #workingDaysOptions,
+        #dateArithmeticOptions {
+            display: none; /* Hide by default, shown by JS */
+            margin-top: 1.5rem;
+            padding: 1.5rem; /* Increased padding */
+            background-color: rgba(27, 34, 56, 0.7);
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--accent-purple);
+        }
+        #workingDaysOptions { border-left-color: var(--accent-orange); }
+
+        /* Redesigned Add/Subtract Area */
+        #addSubtractOptions label {
+            font-weight: 600; /* Make label slightly bolder */
+            margin-bottom: 1rem; /* More space below label */
+        }
+
+        .add-subtract-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem; /* Adjust gap as needed */
+            align-items: stretch; /* Stretch items to same height */
+            margin-top: 15px;
+        }
+
+        /* Style the new Operation Toggle Button */
+        .operation-button {
+            flex: 0 0 auto; /* Don't grow, don't shrink, base on content width + padding */
+            padding: 0.9rem 1.2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--input-border);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            background-color: var(--input-bg); /* Match input background */
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex; /* Align icon and text */
+            align-items: center;
+            justify-content: center;
+            min-width: 100px; /* Minimum width */
+            text-align: center;
+        }
+        .operation-button .icon {
+            display: inline-block;
+            font-weight: bold;
+            margin-right: 0.5em;
+            font-size: 1.1em;
+        }
+
+        /* Specific Add/Subtract styling */
+        .operation-button.add-mode {
+            border-color: var(--accent-purple); /* Highlight Subtract */
+            box-shadow: 0 0 0 2px rgba(230, 168, 77, 0.2); /* Subtle glow */
+        }
+        .operation-button.subtract-mode {
+            border-color: var(--accent-purple); /* Highlight Subtract */
+             box-shadow: 0 0 0 2px rgba(155, 92, 254, 0.2); /* Subtle glow */
+        }
+
+        .operation-button:hover {
+            transform: translateY(-2px);
+            background-color: #344266; /* Slightly lighter on hover */
+        }
+        .operation-button:active {
+             transform: translateY(0);
+             background-color: #3E4B6D;
+        }
+
+        /* Adjust number inputs in this specific group */
+        .add-subtract-inputs input[type="number"] {
+            flex: 1 1 80px; /* Allow growing and shrinking */
+            text-align: center;
+            padding: 0.9rem 0.5rem; /* Adjust padding if needed */
+            padding: 0.9rem 1.1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--input-border);
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--primary-text);
+            outline: none;
+            transition: var(--transition);
+            background-color: var(--input-bg);
+            width: 25%;
+            text-align: center;
+        }
+
+        /* Error Message Styling */
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.875rem;
+            margin-top: 0.75rem; /* Increased space */
+            padding: 0.6rem 0.85rem;
+            border-radius: 0.375rem;
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            font-weight: 500;
+            animation: shake 0.4s ease-out;
+            display: none; /* Hidden by default */
+        }
+        @keyframes shake { /* Slightly softer shake */
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+        }
+        .input-group.error input,
+        .input-group.error select,
+        input.error, /* Direct error class for inputs */
+        select.error {
+            border-color: var(--error-red) !important;
+            box-shadow: 0 0 0 3px var(--error-bg) !important;
+        }
+         /* Target specific inputs within Add/Subtract */
+        .add-subtract-inputs input.error {
+            border-color: var(--error-red) !important;
+            box-shadow: 0 0 0 3px var(--error-bg) !important;
+        }
+
+
+        /* Calculate Button Group */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 2.5rem;
+        }
+
+        /* Enhanced Calculate Button Design */
+        #calculate {
+            padding: 0.9rem 2.5rem; /* More padding */
+            border-radius: 0.5rem;
+            font-size: 1.1rem; /* Slightly larger */
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-purple-darker)); /* Use gradient */
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+             width: auto; /* Default width */
+             min-width: 200px; /* Minimum width */
+        }
+        #calculate span { /* Ensure text is above pseudo-elements */
+             position: relative;
+             z-index: 2;
+        }
+
+        /* Hover/Active effect */
+         #calculate::before { /* Add a subtle sheen element */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.6s ease;
+            z-index: 1;
+         }
+
+        #calculate:hover {
+            transform: translateY(-3px); /* Lift more */
+            box-shadow: 0 8px 20px rgba(155, 92, 254, 0.3); /* Glow effect */
+            background: linear-gradient(45deg, var(--accent-purple-darker), var(--accent-purple)); /* Slightly shift gradient */
+        }
+         #calculate:hover::before {
+            left: 125%; /* Animate sheen across */
+         }
+
+        #calculate:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Results Area */
+        #results {
+            margin-top: 2.5rem;
+            padding: 1.75rem;
+            background-color: var(--input-bg);
+            border-radius: 0.75rem;
+            border: 1px solid var(--input-border);
+            font-size: 1rem;
+            color: var(--primary-text);
+            white-space: pre-wrap;
+            word-break: break-word;
+            animation: fadeIn 0.5s ease-out;
+            display: none; /* Hidden by default */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #results h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid rgba(230, 168, 77, 0.3);
+            padding-bottom: 0.5rem;
+        }
+        #results p { margin-bottom: 0.75rem; line-height: 1.6; }
+        #results strong { color: var(--accent-orange); font-weight: 600; }
+        #results hr { border-color: rgba(255,255,255,0.1); margin: 1rem 0; border-style: solid; border-width: 1px 0 0 0; }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .date-time-calculator-container {
+                padding: 1.5rem;
+                 margin-top: 1rem;
+                 margin-bottom: 1rem;
+            }
+            h1 { font-size: 1.75rem; margin-bottom: 1.5rem; }
+            .input-group label { font-size: 0.85rem; }
+
+            /* Stack Date/Time inputs and buttons */
+           .date-time-group {
+               flex-direction: column;
+               align-items: stretch;
+           }
+           .date-time-group input[type="date"],
+           .date-time-group input[type="time"] {
+               min-width: 0; /* Remove min-width */
+               flex-basis: auto; /* Reset flex basis */
+           }
+            .input-button-group {
+                justify-content: flex-start;
+                margin-top: 0.5rem;
+            }
+
+            /* Stack Add/Subtract inputs */
+            .add-subtract-inputs {
+                flex-direction: column; /* Stack vertically */
+                align-items: stretch; /* Stretch full width */
+                gap: 0.75rem;
+            }
+            .operation-button {
+                width: 100%; /* Full width button */
+                justify-content: center; /* Center text/icon */
+                min-width: unset; /* Remove min-width */
+                flex-basis: auto; /* Reset basis */
+                padding: 1rem; /* Slightly more padding on mobile */
+            }
+             .add-subtract-inputs input[type="number"] {
+                width: 100%;
+                flex-basis: auto;
+             }
+
+
+            /* Make Calculate button full width */
+             .button-group { margin-top: 2rem; }
+             #calculate {
+                 width: 100%;
+                 padding: 1rem; /* Adjust padding */
+                 font-size: 1rem;
+                 min-width: unset; /* Remove min-width */
+             }
+
+            #results { padding: 1.25rem; margin-top: 2rem;}
+            #results h2 { font-size: 1.3rem; }
+        }
+
+        .copyright {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
